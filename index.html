@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MyTube - New Learning Process</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- 🔴 NAVBAR -->
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-left">
       <h1 class="logo">MyTube</h1>
@@ -16,6 +16,7 @@
 
     <div class="nav-center">
       <ul class="nav-links">
+        <!-- note: use href="#" and pass event to showTab -->
         <li><a href="#" class="active" onclick="showTab('videosTab', event)">Videos</a></li>
         <li><a href="#" onclick="showTab('playlistsTab', event)">Playlists</a></li>
         <li><a href="#" onclick="showTab('aboutTab', event)">About</a></li>
@@ -25,37 +26,35 @@
     <div class="nav-right">
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="Search..." />
-        <button onclick="searchVideos()">🔍</button>
+        <button onclick="searchInActiveTab()">🔍</button>
       </div>
-      <div class="profile-icon">
-        <span>👤</span>
-      </div>
+      <div class="profile-icon"><span>👤</span></div>
     </div>
   </nav>
 
-  <!-- 🎥 VIDEOS TAB -->
-  <section id="videosTab" class="tab-content active">
-    <div id="videoGrid"></div>
-  </section>
+  <!-- TABS -->
+  <main>
+    <!-- Videos tab (default active) -->
+    <section id="videosTab" class="tab-content active">
+      <div id="videoGrid"></div>
+    </section>
 
-  <!-- 🎞 PLAYLISTS TAB -->
-  <section id="playlistsTab" class="tab-content">
-    <div id="playlistGrid"></div>
-  </section>
+    <!-- Playlists tab -->
+    <section id="playlistsTab" class="tab-content">
+      <div id="playlistGrid"></div>
+    </section>
 
-  <!-- ℹ️ ABOUT TAB -->
-  <section id="aboutTab" class="tab-content">
-    <div class="about-section">
-      <h2>About MyTube</h2>
-      <p>Welcome to <b>MyTube</b> — your personalized “New Learning Process” platform!<br>
-         Here you can explore videos, playlists, and resources related to technology and continuous learning.
-      </p>
-      <p>Created by <b>Chethana M</b> 💻</p>
-    </div>
-  </section>
+    <!-- About tab -->
+    <section id="aboutTab" class="tab-content">
+      <div class="about-section">
+        <h2>About MyTube</h2>
+        <p>Welcome to <strong>MyTube</strong> — New Learning Process by Chethana M.</p>
+      </div>
+    </section>
+  </main>
 
-  <!-- 🎬 MODAL -->
-  <div id="videoModal" class="modal">
+  <!-- VIDEO MODAL -->
+  <div id="videoModal" class="modal" onclick="modalBackgroundClick(event)">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
       <iframe
@@ -67,7 +66,7 @@
     </div>
   </div>
 
-  <footer>© 2025 MyTube | New Learning Process by Chethana M 💻</footer>
+  <footer>© 2025 MyTube | New Learning Process</footer>
 
   <script src="script.js"></script>
 </body>
