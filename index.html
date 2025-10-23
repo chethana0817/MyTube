@@ -1,60 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Channel Clone</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Learning Process (MyTube)</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="logo">MyTube</div>
-    <div class="search-box">
-      <input type="text" placeholder="Search..." id="searchInput">
-      <button onclick="searchVideos()">🔍</button>
-    </div>
-    <div class="profile">👤</div>
-  </header>
 
-  <!-- Channel Banner -->
-  
+  <header>🎓 New Learning Process (MyTube)</header>
 
-  <!-- Tabs -->
-  <nav class="tabs">
-    <button class="tab active" onclick="showTab('home')">Home</button>
-    <button class="tab" onclick="showTab('videos')">Videos</button>
-    <button class="tab" onclick="showTab('playlists')">Playlists</button>
-    <button class="tab" onclick="showTab('about')">About</button>
-  </nav>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search videos..." />
+    <button onclick="searchVideos()">Search</button>
+  </div>
 
-  <!-- Tab Contents -->
-  <section id="home" class="tab-content active">
-    <h3>Welcome to TechZone!</h3>
-    <p>Explore our latest tech tutorials, gadget reviews, and AI experiments.</p>
-  </section>
+  <div id="videoGrid"></div>
 
-  <section id="videos" class="tab-content">
-    <div class="video-grid" id="videoGrid">
-      <!-- Videos inserted by JS -->
-    </div>
-  </section>
-
-  <section id="playlists" class="tab-content">
-    <p>Playlist section coming soon!</p>
-  </section>
-
-  <section id="about" class="tab-content">
-    <p>This channel focuses on technology, coding, and AI innovations.</p>
-  </section>
-
-  <!-- 🎥 Video Player Modal -->
+  <!-- 🎬 Modal -->
   <div id="videoModal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <iframe 
+        id="videoPlayer"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
+
+  <footer>© 2025 New Learning Process | Built by Chethana M 💻</footer>
 
   <script src="script.js"></script>
 </body>
