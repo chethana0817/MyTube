@@ -1,126 +1,148 @@
 // =======================
-// Data
+// 📹 VIDEO & PLAYLIST DATA
 // =======================
+
+// 🎞 Single Videos
 const videos = [
-  { title: "AI Chatbot Python Full Course For Beginners (Learn How To Code in 2025)", views: "Never mind learn", thumbnail: "https://picsum.photos/300/150?1", url: "https://www.youtube.com/watch?v=Lc5LKDqhyzs" },
-  { title: "AWS Full Course 2025 | AWS Training For Beginners", views: "980K views", thumbnail: "https://picsum.photos/300/150?2", url: "https://youtu.be/ThKukf8i35U" },
-  { title: "R Programming Full Course", views: "760K views", thumbnail: "https://picsum.photos/300/150?3", url: "https://youtu.be/P15wMPd8CWo" }
+  { 
+    title: "AI Chatbot Python Full Course For Beginners (Learn How To Code in 2025)", 
+    views: "Never mind learn", 
+    thumbnail: "https://picsum.photos/300/150?1", 
+    url: "https://www.youtube.com/watch?v=Lc5LKDqhyzs" 
+  },
+  { 
+    title: "AWS Full Course 2025 | AWS Training For Beginners", 
+    views: "980K views", 
+    thumbnail: "https://picsum.photos/300/150?2", 
+    url: "https://youtu.be/ThKukf8i35U" 
+  },
+  { 
+    title: "R Programming Full Course", 
+    views: "760K views", 
+    thumbnail: "https://picsum.photos/300/150?3", 
+    url: "https://youtu.be/P15wMPd8CWo" 
+  },
+  // 🆕 Added BEL Exam Prep videos
+  { 
+    title: "BEL Exam Preparation 2025 - Aptitude Session 1", 
+    views: "New", 
+    thumbnail: "https://picsum.photos/300/150?7", 
+    url: "https://www.youtube.com/watch?v=2bXZRKb-Wkw&t=1186s&pp=ygUZYmVsIGV4YW0gcHJlcGFyYXRpb24gMjAyNQ%3D%3D" 
+  },
+  { 
+    title: "BEL Exam Preparation 2025 - Session 2", 
+    views: "New", 
+    thumbnail: "https://picsum.photos/300/150?8", 
+    url: "https://www.youtube.com/watch?v=QARxvJ3rM8s&pp=ygUZYmVsIGV4YW0gcHJlcGFyYXRpb24gMjAyNQ%3D%3D" 
+  },
+  { 
+    title: "BEL Exam Preparation 2025 - Technical Concepts", 
+    views: "New", 
+    thumbnail: "https://picsum.photos/300/150?9", 
+    url: "https://www.youtube.com/watch?v=4vP6Fl8pJo4&pp=ygUZYmVsIGV4YW0gcHJlcGFyYXRpb24gMjAyNQ%3D%3D" 
+  }
 ];
 
+// 📂 Playlists
 const playlists = [
-  { title: "Data Structures", views: "540K views", thumbnail: "https://picsum.photos/300/150?4", url: "https://youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5" },
-  { title: "Algorithms", views: "540K views", thumbnail: "https://picsum.photos/300/150?5", url: "https://youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" },
-  { title: "Java Certification 8 & 11 OCJA", views: "760K views", thumbnail: "https://picsum.photos/300/150?6", url: "https://youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA" }
+  { 
+    title: "Data Structures", 
+    views: "540K views", 
+    thumbnail: "https://picsum.photos/300/150?4", 
+    url: "https://www.youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5" 
+  },
+  { 
+    title: "Algorithms", 
+    views: "540K views", 
+    thumbnail: "https://picsum.photos/300/150?5", 
+    url: "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" 
+  },
+  { 
+    title: "Java Certification 8 & 11 OCJA", 
+    views: "760K views", 
+    thumbnail: "https://picsum.photos/300/150?6", 
+    url: "https://www.youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA" 
+  }
 ];
 
 // =======================
-// Helpers - render grids
+// 🎥 GRID RENDERING
 // =======================
 function createCard(item) {
-  const card = document.createElement('div');
-  card.className = 'video';
-  card.innerHTML = `
-    <img src="${item.thumbnail}" alt="${escapeHtml(item.title)}">
+  const div = document.createElement("div");
+  div.className = "video";
+  div.innerHTML = `
+    <img src="${item.thumbnail}" alt="${item.title}">
     <div class="video-info">
-      <h4>${escapeHtml(item.title)}</h4>
-      <p>${escapeHtml(item.views)}</p>
+      <h4>${item.title}</h4>
+      <p>${item.views}</p>
     </div>
   `;
-  return card;
+  div.onclick = () => openModal(item.url);
+  return div;
 }
 
 function loadGrid(items, containerId) {
   const grid = document.getElementById(containerId);
-  grid.innerHTML = '';
-  items.forEach(it => {
-    const card = createCard(it);
-    // clicking opens modal and plays either video or playlist
-    card.addEventListener('click', () => openModal(it.url));
-    grid.appendChild(card);
-  });
+  grid.innerHTML = "";
+  items.forEach(item => grid.appendChild(createCard(item)));
 }
 
-// escape helper simple
-function escapeHtml(text) {
-  return text.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
-
-// load initial content
-loadGrid(videos, 'videoGrid');
-loadGrid(playlists, 'playlistGrid');
+// Initial load
+loadGrid(videos, "videoGrid");
+loadGrid(playlists, "playlistGrid");
 
 // =======================
-// Modal player
+// 🎬 VIDEO MODAL PLAYER
 // =======================
-const modal = document.getElementById('videoModal');
-const videoPlayer = document.getElementById('videoPlayer');
+const modal = document.getElementById("videoModal");
+const videoPlayer = document.getElementById("videoPlayer");
 
 function openModal(url) {
-  // build embeddable URL
-  // playlist -> embed/videoseries?list=PLAYLIST_ID
-  // watch?v=VIDEO_ID -> embed/VIDEO_ID
-  // youtu.be/VIDEO_ID -> www.youtube.com/embed/VIDEO_ID
-  let embedUrl = url
-    .replace('watch?v=', 'embed/')
-    .replace('youtu.be/', 'www.youtube.com/embed/')
-    // convert playlist to videoseries embed:
-    .replace('youtube.com/playlist?list=', 'www.youtube.com/embed/videoseries?list=')
-    .replace('youtube.com/watch?v=', 'www.youtube.com/embed/');
+  let embed = url
+    .replace("watch?v=", "embed/")
+    .replace("youtu.be/", "www.youtube.com/embed/")
+    .replace("youtube.com/playlist?list=", "www.youtube.com/embed/videoseries?list=")
+    .replace("youtube.com/watch?v=", "www.youtube.com/embed/");
 
-  // ensure if query existed we don't duplicate '?'
-  const suffix = embedUrl.includes('?') ? '&rel=0&autoplay=1&modestbranding=1&controls=1' : '?rel=0&autoplay=1&modestbranding=1&controls=1';
-  videoPlayer.src = embedUrl + suffix;
-
-  modal.style.display = 'flex';
+  videoPlayer.src = embed + (embed.includes("?") ? "&" : "?") + "rel=0&autoplay=1&modestbranding=1";
+  modal.style.display = "flex";
 }
 
-// close modal
 function closeModal() {
-  modal.style.display = 'none';
-  videoPlayer.src = '';
+  modal.style.display = "none";
+  videoPlayer.src = "";
 }
 
-// allow clicking outside content to close
 function modalBackgroundClick(e) {
   if (e.target === modal) closeModal();
 }
 
 // =======================
-// Tabs
+// 🧭 TAB SWITCHING
 // =======================
-function showTab(tabId, event) {
-  // prevent default anchor behavior
-  if (event && event.preventDefault) event.preventDefault();
-
-  // hide all tab contents
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  // show requested
-  const tab = document.getElementById(tabId);
-  if (tab) tab.classList.add('active');
-
-  // active link styling
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  if (event && event.target) event.target.classList.add('active');
+function showTab(tabId, btn) {
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  document.getElementById(tabId).classList.add("active");
+  document.querySelectorAll(".nav-links button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
 }
 
 // =======================
-// Search (searches active tab)
+// 🔍 SEARCH FUNCTION
 // =======================
 function searchInActiveTab() {
-  const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
-  const activeTab = document.querySelector('.tab-content.active');
-  if (!activeTab) return;
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const active = document.querySelector(".tab-content.active");
 
-  if (activeTab.id === 'videosTab') {
+  if (active.id === "videosTab") {
     const filtered = videos.filter(v => v.title.toLowerCase().includes(q));
-    loadGrid(filtered, 'videoGrid');
-  } else if (activeTab.id === 'playlistsTab') {
+    loadGrid(filtered, "videoGrid");
+  } else if (active.id === "playlistsTab") {
     const filtered = playlists.filter(p => p.title.toLowerCase().includes(q));
-    loadGrid(filtered, 'playlistGrid');
+    loadGrid(filtered, "playlistGrid");
   }
 }
 
-// close modal on Escape
-window.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
+// Close modal on Escape
+window.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
