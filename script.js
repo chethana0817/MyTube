@@ -41,7 +41,7 @@ const videos = [
 ];
 
 // =======================
-// 🎥 GENERATE VIDEO GRID
+// 🎥 VIDEO GRID
 // =======================
 const videoGrid = document.getElementById("videoGrid");
 
@@ -73,19 +73,12 @@ const videoPlayer = document.getElementById("videoPlayer");
 function openModal(videoUrl) {
   modal.style.display = "flex";
 
-  // Convert to embeddable YouTube URL
   let embedUrl = videoUrl
     .replace("watch?v=", "embed/")
     .replace("youtu.be/", "www.youtube.com/embed/")
     .replace("youtube.com/playlist?", "www.youtube.com/embed/videoseries?");
 
   videoPlayer.src = `${embedUrl}?autoplay=1&rel=0&modestbranding=1&controls=1`;
-
-  // Fallback for unembeddable videos
-  videoPlayer.onerror = () => {
-    alert("⚠️ This video cannot be embedded. Opening on YouTube instead...");
-    window.open(videoUrl, "_blank");
-  };
 }
 
 function closeModal() {
