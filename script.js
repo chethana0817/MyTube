@@ -1,117 +1,126 @@
 // =======================
-// 📹 VIDEO & PLAYLIST DATA
+// Data
 // =======================
 const videos = [
-  { 
-    title: "AI Chatbot Python Full Course For Beginners (Learn How To Code in 2025)", 
-    views: "Never mind learn", 
-    thumbnail: "https://picsum.photos/300/150?1", 
-    url: "https://www.youtube.com/watch?v=Lc5LKDqhyzs" 
-  },
-  { 
-    title: "AWS Full Course 2025 | AWS Training For Beginners", 
-    views: "980K views", 
-    thumbnail: "https://picsum.photos/300/150?2", 
-    url: "https://youtu.be/ThKukf8i35U" 
-  },
-  { 
-    title: "R Programming Full Course", 
-    views: "760K views", 
-    thumbnail: "https://picsum.photos/300/150?3", 
-    url: "https://youtu.be/P15wMPd8CWo" 
-  }
+  { title: "AI Chatbot Python Full Course For Beginners (Learn How To Code in 2025)", views: "Never mind learn", thumbnail: "https://picsum.photos/300/150?1", url: "https://www.youtube.com/watch?v=Lc5LKDqhyzs" },
+  { title: "AWS Full Course 2025 | AWS Training For Beginners", views: "980K views", thumbnail: "https://picsum.photos/300/150?2", url: "https://youtu.be/ThKukf8i35U" },
+  { title: "R Programming Full Course", views: "760K views", thumbnail: "https://picsum.photos/300/150?3", url: "https://youtu.be/P15wMPd8CWo" }
 ];
 
 const playlists = [
-  { 
-    title: "Data Structures", 
-    views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?4", 
-    url: "https://youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5" 
-  },
-  { 
-    title: "Algorithms", 
-    views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?5", 
-    url: "https://youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" 
-  },
-  { 
-    title: "Java Certification 8 & 11 OCJA", 
-    views: "760K views", 
-    thumbnail: "https://picsum.photos/300/150?6", 
-    url: "https://youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA" 
-  }
+  { title: "Data Structures", views: "540K views", thumbnail: "https://picsum.photos/300/150?4", url: "https://youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5" },
+  { title: "Algorithms", views: "540K views", thumbnail: "https://picsum.photos/300/150?5", url: "https://youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" },
+  { title: "Java Certification 8 & 11 OCJA", views: "760K views", thumbnail: "https://picsum.photos/300/150?6", url: "https://youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA" }
 ];
 
 // =======================
-// 🎥 LOAD VIDEO GRID
+// Helpers - render grids
 // =======================
-function loadVideos(videosToLoad, gridId) {
-  const grid = document.getElementById(gridId);
-  grid.innerHTML = "";
-  videosToLoad.forEach(v => {
-    const videoCard = document.createElement("div");
-    videoCard.classList.add("video");
-    videoCard.innerHTML = `
-      <img src="${v.thumbnail}" alt="Thumbnail">
-      <div class="video-info">
-        <h4>${v.title}</h4>
-        <p>${v.views}</p>
-      </div>
-    `;
-    videoCard.addEventListener("click", () => openModal(v.url));
-    grid.appendChild(videoCard);
+function createCard(item) {
+  const card = document.createElement('div');
+  card.className = 'video';
+  card.innerHTML = `
+    <img src="${item.thumbnail}" alt="${escapeHtml(item.title)}">
+    <div class="video-info">
+      <h4>${escapeHtml(item.title)}</h4>
+      <p>${escapeHtml(item.views)}</p>
+    </div>
+  `;
+  return card;
+}
+
+function loadGrid(items, containerId) {
+  const grid = document.getElementById(containerId);
+  grid.innerHTML = '';
+  items.forEach(it => {
+    const card = createCard(it);
+    // clicking opens modal and plays either video or playlist
+    card.addEventListener('click', () => openModal(it.url));
+    grid.appendChild(card);
   });
 }
 
-// Load both sections initially
-loadVideos(videos, "videoGrid");
-loadVideos(playlists, "playlistGrid");
-
-// =======================
-// 🎬 VIDEO MODAL
-// =======================
-const modal = document.getElementById("videoModal");
-const videoPlayer = document.getElementById("videoPlayer");
-
-function openModal(videoUrl) {
-  modal.style.display = "flex";
-
-  let embedUrl = videoUrl
-    .replace("watch?v=", "embed/")
-    .replace("youtu.be/", "www.youtube.com/embed/")
-    .replace("youtube.com/playlist?", "www.youtube.com/embed/videoseries?");
-
-  videoPlayer.src = `${embedUrl}?autoplay=1&rel=0&modestbranding=1&controls=1`;
+// escape helper simple
+function escapeHtml(text) {
+  return text.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
+// load initial content
+loadGrid(videos, 'videoGrid');
+loadGrid(playlists, 'playlistGrid');
+
+// =======================
+// Modal player
+// =======================
+const modal = document.getElementById('videoModal');
+const videoPlayer = document.getElementById('videoPlayer');
+
+function openModal(url) {
+  // build embeddable URL
+  // playlist -> embed/videoseries?list=PLAYLIST_ID
+  // watch?v=VIDEO_ID -> embed/VIDEO_ID
+  // youtu.be/VIDEO_ID -> www.youtube.com/embed/VIDEO_ID
+  let embedUrl = url
+    .replace('watch?v=', 'embed/')
+    .replace('youtu.be/', 'www.youtube.com/embed/')
+    // convert playlist to videoseries embed:
+    .replace('youtube.com/playlist?list=', 'www.youtube.com/embed/videoseries?list=')
+    .replace('youtube.com/watch?v=', 'www.youtube.com/embed/');
+
+  // ensure if query existed we don't duplicate '?'
+  const suffix = embedUrl.includes('?') ? '&rel=0&autoplay=1&modestbranding=1&controls=1' : '?rel=0&autoplay=1&modestbranding=1&controls=1';
+  videoPlayer.src = embedUrl + suffix;
+
+  modal.style.display = 'flex';
+}
+
+// close modal
 function closeModal() {
-  modal.style.display = "none";
-  videoPlayer.src = "";
+  modal.style.display = 'none';
+  videoPlayer.src = '';
 }
 
-window.onclick = function(event) {
-  if (event.target === modal) {
-    closeModal();
-  }
-};
-
-// =======================
-// 🔍 SEARCH FUNCTION
-// =======================
-function searchVideos() {
-  const query = document.getElementById("searchInput").value.toLowerCase();
-  const filtered = videos.filter(v => v.title.toLowerCase().includes(query));
-  loadVideos(filtered, "videoGrid");
+// allow clicking outside content to close
+function modalBackgroundClick(e) {
+  if (e.target === modal) closeModal();
 }
 
 // =======================
-// 🧭 TAB SWITCHING
+// Tabs
 // =======================
 function showTab(tabId, event) {
-  document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
-  document.getElementById(tabId).classList.add("active");
+  // prevent default anchor behavior
+  if (event && event.preventDefault) event.preventDefault();
 
-  document.querySelectorAll(".nav-links a").forEach(link => link.classList.remove("active"));
-  event.target.classList.add("active");
+  // hide all tab contents
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  // show requested
+  const tab = document.getElementById(tabId);
+  if (tab) tab.classList.add('active');
+
+  // active link styling
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  if (event && event.target) event.target.classList.add('active');
 }
+
+// =======================
+// Search (searches active tab)
+// =======================
+function searchInActiveTab() {
+  const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+  const activeTab = document.querySelector('.tab-content.active');
+  if (!activeTab) return;
+
+  if (activeTab.id === 'videosTab') {
+    const filtered = videos.filter(v => v.title.toLowerCase().includes(q));
+    loadGrid(filtered, 'videoGrid');
+  } else if (activeTab.id === 'playlistsTab') {
+    const filtered = playlists.filter(p => p.title.toLowerCase().includes(q));
+    loadGrid(filtered, 'playlistGrid');
+  }
+}
+
+// close modal on Escape
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
