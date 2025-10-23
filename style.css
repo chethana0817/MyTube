@@ -24,8 +24,10 @@ body {
   font-size: 1.8rem;
   margin: 0;
   font-weight: bold;
+  letter-spacing: 0.5px;
 }
 
+/* ========== Nav Links ========== */
 .nav-links {
   list-style: none;
   display: flex;
