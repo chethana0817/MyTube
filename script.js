@@ -1,66 +1,19 @@
 // =======================
 // 📹 VIDEO & PLAYLIST DATA
 // =======================
-
 const videos = [
-  { 
-    title: "AI Chatbot Python Full Course For Beginners (Learn How To Code in 2025)", 
-    views: "Never mind learn", 
-    thumbnail: "https://picsum.photos/300/150?1", 
-    url: "https://www.youtube.com/watch?v=Lc5LKDqhyzs" 
-  },
-  { 
-    title: "AWS Full Course 2025 | AWS Training For Beginners", 
-    views: "980K views", 
-    thumbnail: "https://picsum.photos/300/150?2", 
-    url: "https://youtu.be/ThKukf8i35U" 
-  },
-  { 
-    title: "R Programming Full Course", 
-    views: "760K views", 
-    thumbnail: "https://picsum.photos/300/150?3", 
-    url: "https://youtu.be/P15wMPd8CWo" 
-  },
-  { 
-    title: "BEL Exam Preparation 2025 - Aptitude Session 1", 
-    views: "New", 
-    thumbnail: "https://picsum.photos/300/150?7", 
-    url: "https://www.youtube.com/watch?v=2bXZRKb-Wkw" 
-  },
-  { 
-    title: "BEL Exam Preparation 2025 - Session 2", 
-    views: "New", 
-    thumbnail: "https://picsum.photos/300/150?8", 
-    url: "https://www.youtube.com/watch?v=QARxvJ3rM8s" 
-  },
-  { 
-    title: "BEL Exam Preparation 2025 - Technical Concepts", 
-    views: "New", 
-    thumbnail: "https://picsum.photos/300/150?9", 
-    url: "https://www.youtube.com/watch?v=4vP6Fl8pJo4" 
-  }
+  { title: "AI Chatbot Python Full Course For Beginners", views: "1.2M views", thumbnail: "https://picsum.photos/300/150?1", url: "https://www.youtube.com/watch?v=Lc5LKDqhyzs" },
+  { title: "AWS Full Course 2025 | Training For Beginners", views: "980K views", thumbnail: "https://picsum.photos/300/150?2", url: "https://youtu.be/ThKukf8i35U" },
+  { title: "R Programming Full Course", views: "760K views", thumbnail: "https://picsum.photos/300/150?3", url: "https://youtu.be/P15wMPd8CWo" },
+  { title: "BEL Exam Preparation - Aptitude Session 1", views: "New", thumbnail: "https://picsum.photos/300/150?7", url: "https://www.youtube.com/watch?v=2bXZRKb-Wkw" },
+  { title: "BEL Exam Preparation - Session 2", views: "New", thumbnail: "https://picsum.photos/300/150?8", url: "https://www.youtube.com/watch?v=QARxvJ3rM8s" },
+  { title: "BEL Exam Preparation - Technical Concepts", views: "New", thumbnail: "https://picsum.photos/300/150?9", url: "https://www.youtube.com/watch?v=4vP6Fl8pJo4" }
 ];
 
-// 📂 Playlists
 const playlists = [
-  { 
-    title: "Data Structures", 
-    views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?4", 
-    url: "https://www.youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5" 
-  },
-  { 
-    title: "Algorithms", 
-    views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?5", 
-    url: "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" 
-  },
-  { 
-    title: "Java Certification 8 & 11 OCJA", 
-    views: "760K views", 
-    thumbnail: "https://picsum.photos/300/150?6", 
-    url: "https://www.youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA" 
-  }
+  { title: "Data Structures", views: "540K views", thumbnail: "https://picsum.photos/300/150?4", url: "https://www.youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5" },
+  { title: "Algorithms", views: "540K views", thumbnail: "https://picsum.photos/300/150?5", url: "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" },
+  { title: "Java Certification 8 & 11 OCJA", views: "760K views", thumbnail: "https://picsum.photos/300/150?6", url: "https://www.youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA" }
 ];
 
 // =======================
@@ -76,7 +29,7 @@ function createCard(item) {
       <p>${item.views}</p>
     </div>
   `;
-  div.onclick = () => openModal(item.url);
+  div.onclick = () => openModal(item.url, item.title);
   return div;
 }
 
@@ -94,30 +47,28 @@ loadGrid(playlists, "playlistGrid");
 // =======================
 const modal = document.getElementById("videoModal");
 const videoPlayer = document.getElementById("videoPlayer");
+const modalHeader = document.getElementById("modalHeader");
 
-function openModal(url) {
-  let embed = "";
+function openModal(url, title = "Now Playing") {
+  let embedUrl = "";
+  const cleanUrl = url.split("&")[0].trim();
 
-  try {
-    url = url.split("&")[0].trim();
-
-    if (url.includes("playlist?list=")) {
-      const listId = url.split("list=")[1];
-      embed = `https://www.youtube.com/embed/videoseries?list=${listId}`;
-    } else if (url.includes("watch?v=")) {
-      const videoId = url.split("v=")[1];
-      embed = `https://www.youtube.com/embed/${videoId}`;
-    } else if (url.includes("youtu.be/")) {
-      const videoId = url.split("youtu.be/")[1];
-      embed = `https://www.youtube.com/embed/${videoId}`;
-    }
-
-    videoPlayer.src = `${embed}?autoplay=1&rel=0&modestbranding=1`;
-    modal.style.display = "flex";
-  } catch (e) {
-    console.error("Embed error:", e);
-    window.open(url, "_blank");
+  if (cleanUrl.includes("playlist?list=")) {
+    const listId = cleanUrl.split("list=")[1];
+    embedUrl = `https://www.youtube.com/embed/videoseries?list=${listId}`;
+    modalHeader.innerHTML = `▶ Play All: ${title}`;
+  } else if (cleanUrl.includes("watch?v=")) {
+    const videoId = cleanUrl.split("v=")[1];
+    embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    modalHeader.innerHTML = `🎬 ${title}`;
+  } else if (cleanUrl.includes("youtu.be/")) {
+    const videoId = cleanUrl.split("youtu.be/")[1];
+    embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    modalHeader.innerHTML = `🎬 ${title}`;
   }
+
+  videoPlayer.src = `${embedUrl}?autoplay=1&rel=0&modestbranding=1`;
+  modal.style.display = "flex";
 }
 
 function closeModal() {
