@@ -1,5 +1,5 @@
 // =======================
-// 📹 VIDEO DATA
+// 📹 VIDEO & PLAYLIST DATA
 // =======================
 const videos = [
   { 
@@ -19,7 +19,10 @@ const videos = [
     views: "760K views", 
     thumbnail: "https://picsum.photos/300/150?3", 
     url: "https://youtu.be/P15wMPd8CWo" 
-  },
+  }
+];
+
+const playlists = [
   { 
     title: "Data Structures", 
     views: "540K views", 
@@ -41,12 +44,11 @@ const videos = [
 ];
 
 // =======================
-// 🎥 VIDEO GRID
+// 🎥 LOAD VIDEO GRID
 // =======================
-const videoGrid = document.getElementById("videoGrid");
-
-function loadVideos(videosToLoad) {
-  videoGrid.innerHTML = "";
+function loadVideos(videosToLoad, gridId) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = "";
   videosToLoad.forEach(v => {
     const videoCard = document.createElement("div");
     videoCard.classList.add("video");
@@ -58,14 +60,16 @@ function loadVideos(videosToLoad) {
       </div>
     `;
     videoCard.addEventListener("click", () => openModal(v.url));
-    videoGrid.appendChild(videoCard);
+    grid.appendChild(videoCard);
   });
 }
 
-loadVideos(videos);
+// Load both sections initially
+loadVideos(videos, "videoGrid");
+loadVideos(playlists, "playlistGrid");
 
 // =======================
-// 🎬 VIDEO PLAYER MODAL
+// 🎬 VIDEO MODAL
 // =======================
 const modal = document.getElementById("videoModal");
 const videoPlayer = document.getElementById("videoPlayer");
@@ -93,10 +97,21 @@ window.onclick = function(event) {
 };
 
 // =======================
-// 🔍 SEARCH FUNCTIONALITY
+// 🔍 SEARCH FUNCTION
 // =======================
 function searchVideos() {
   const query = document.getElementById("searchInput").value.toLowerCase();
   const filtered = videos.filter(v => v.title.toLowerCase().includes(query));
-  loadVideos(filtered);
+  loadVideos(filtered, "videoGrid");
+}
+
+// =======================
+// 🧭 TAB SWITCHING
+// =======================
+function showTab(tabId, event) {
+  document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
+  document.getElementById(tabId).classList.add("active");
+
+  document.querySelectorAll(".nav-links a").forEach(link => link.classList.remove("active"));
+  event.target.classList.add("active");
 }
