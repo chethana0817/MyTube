@@ -1,58 +1,109 @@
+/* ========== General ========== */
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(120deg, #121212, #1e1e1e);
+  font-family: "Segoe UI", sans-serif;
+  background-color: #111;
   color: white;
   margin: 0;
   padding: 0;
 }
 
-header {
-  text-align: center;
-  padding: 20px;
+/* ========== Navbar ========== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #181818;
+  padding: 12px 25px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  color: #ff4444;
   font-size: 1.8rem;
-  background: #202020;
-  color: #ff5555;
+  margin: 0;
+  font-weight: bold;
   letter-spacing: 1px;
 }
 
-.search-bar {
+.nav-links {
+  list-style: none;
   display: flex;
-  justify-content: center;
-  margin: 20px 0;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
 }
 
-#searchInput {
-  width: 50%;
-  padding: 10px;
-  border-radius: 8px 0 0 8px;
+.nav-links a {
+  text-decoration: none;
+  color: #ccc;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 5px;
+  transition: color 0.3s;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  color: #ff4444;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #ff4444;
+}
+
+/* ========== Search ========== */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #222;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+.search-box input {
   border: none;
   outline: none;
-  font-size: 1rem;
-}
-
-button {
-  background-color: #ff5555;
+  background: transparent;
   color: white;
+  padding: 5px;
+  font-size: 0.9rem;
+  width: 150px;
+}
+
+.search-box button {
+  background: transparent;
   border: none;
-  padding: 10px 16px;
-  font-size: 1rem;
+  color: #aaa;
   cursor: pointer;
-  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
 }
 
-button:hover {
-  background-color: #ff7777;
+/* ========== Profile Icon ========== */
+.profile-icon span {
+  font-size: 1.5rem;
+  margin-left: 15px;
+  color: #a768ff;
+  cursor: pointer;
 }
 
+/* ========== Video Grid ========== */
 #videoGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
-  padding: 20px;
+  padding: 25px;
 }
 
 .video {
-  background: #2b2b2b;
+  background: #202020;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
@@ -61,7 +112,7 @@ button:hover {
 
 .video:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 85, 85, 0.5);
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.4);
 }
 
 .video img {
@@ -86,7 +137,7 @@ button:hover {
   font-size: 0.9rem;
 }
 
-/* 🎬 Modal Styling */
+/* ========== Modal ========== */
 .modal {
   display: none;
   position: fixed;
@@ -126,10 +177,11 @@ iframe {
 
 footer {
   text-align: center;
-  padding: 15px;
+  padding: 20px;
   color: #999;
-  background: #111;
+  background: #0d0d0d;
   margin-top: 30px;
+  font-size: 0.9rem;
 }
 
 @keyframes fadeIn {
