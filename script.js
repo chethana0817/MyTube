@@ -22,24 +22,24 @@ const videos = [
     thumbnail: "https://picsum.photos/300/150?3", 
     url: "https://youtu.be/P15wMPd8CWo" 
   },
-  // 🆕 Added BEL Exam Prep videos
+  // 🆕 BEL Exam Preparation Videos
   { 
     title: "BEL Exam Preparation 2025 - Aptitude Session 1", 
     views: "New", 
     thumbnail: "https://picsum.photos/300/150?7", 
-    url: "https://www.youtube.com/watch?v=2bXZRKb-Wkw&t=1186s&pp=ygUZYmVsIGV4YW0gcHJlcGFyYXRpb24gMjAyNQ%3D%3D" 
+    url: "https://www.youtube.com/watch?v=2bXZRKb-Wkw" 
   },
   { 
     title: "BEL Exam Preparation 2025 - Session 2", 
     views: "New", 
     thumbnail: "https://picsum.photos/300/150?8", 
-    url: "https://www.youtube.com/watch?v=QARxvJ3rM8s&pp=ygUZYmVsIGV4YW0gcHJlcGFyYXRpb24gMjAyNQ%3D%3D" 
+    url: "https://www.youtube.com/watch?v=QARxvJ3rM8s" 
   },
   { 
     title: "BEL Exam Preparation 2025 - Technical Concepts", 
     views: "New", 
     thumbnail: "https://picsum.photos/300/150?9", 
-    url: "https://www.youtube.com/watch?v=4vP6Fl8pJo4&pp=ygUZYmVsIGV4YW0gcHJlcGFyYXRpb24gMjAyNQ%3D%3D" 
+    url: "https://www.youtube.com/watch?v=4vP6Fl8pJo4" 
   }
 ];
 
@@ -99,7 +99,10 @@ const modal = document.getElementById("videoModal");
 const videoPlayer = document.getElementById("videoPlayer");
 
 function openModal(url) {
-  let embed = url
+  // 🧹 Clean up URL (remove time & tracking params)
+  const cleanUrl = url.split("&")[0].trim();
+
+  let embed = cleanUrl
     .replace("watch?v=", "embed/")
     .replace("youtu.be/", "www.youtube.com/embed/")
     .replace("youtube.com/playlist?list=", "www.youtube.com/embed/videoseries?list=")
