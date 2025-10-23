@@ -99,16 +99,25 @@ const modal = document.getElementById("videoModal");
 const videoPlayer = document.getElementById("videoPlayer");
 
 function openModal(url) {
-  // 🧹 Clean up URL (remove time & tracking params)
-  const cleanUrl = url.split("&")[0].trim();
+  let embed = "";
 
-  let embed = cleanUrl
-    .replace("watch?v=", "embed/")
-    .replace("youtu.be/", "www.youtube.com/embed/")
-    .replace("youtube.com/playlist?list=", "www.youtube.com/embed/videoseries?list=")
-    .replace("youtube.com/watch?v=", "www.youtube.com/embed/");
+  // 🧠 Identify and convert correctly
+  if (url.includes("playlist?list=")) {
+    // Playlist URL
+    const listId = url.split("list=")[1];
+    embed = `https://www.youtube.com/embed/videoseries?list=${listId}`;
+  } else if (url.includes("watch?v=")) {
+    // Normal YouTube video
+    const videoId = url.split("v=")[1].split("&")[0];
+    embed = `https://www.youtube.com/embed/${videoId}`;
+  } else if (url.includes("youtu.be/")) {
+    // Short YouTube link
+    const videoId = url.split("youtu.be/")[1].split("?")[0];
+    embed = `https://www.youtube.com/embed/${videoId}`;
+  }
 
-  videoPlayer.src = embed + (embed.includes("?") ? "&" : "?") + "rel=0&autoplay=1&modestbranding=1";
+  // ✅ Set iframe src
+  videoPlayer.src = `${embed}?rel=0&autoplay=1&modestbranding=1`;
   modal.style.display = "flex";
 }
 
