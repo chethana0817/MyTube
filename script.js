@@ -10,46 +10,34 @@ const videos = [
   },
   { 
     title: "AWS Full Course 2025 | AWS Training For Beginners", 
-    views: "980K Never mind learn", 
+    views: "980K views", 
     thumbnail: "https://picsum.photos/300/150?2", 
-    url: "https://www.youtube.com/live/6_R1ZUVz7FU?si=m-Qp_lvGKZ-8j3ml" 
+    url: "https://youtu.be/ThKukf8i35U" 
   },
   { 
-    title: "AWS p1", 
-    views: "850K views", 
+    title: "R Programming Full Course", 
+    views: "760K views", 
     thumbnail: "https://picsum.photos/300/150?3", 
-    url: "https://youtu.be/ThKukf8i35U?si=2X1StlTAudztpGXX" 
-  },
-  { 
-    title: "R prog", 
-    views: "760K views", 
-    thumbnail: "https://picsum.photos/300/150?4", 
-    url: "https://youtu.be/P15wMPd8CWo?si=OmgWylhyX6FqzpNy" 
-  },
-  { 
-    title: "DS", 
-    views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?5", 
-    url: "https://youtube.com/playlist?list=PLDV1Zeh2NRsB6SWUrDFW2RmDotAfPbeHu&si=vCWfgaIoJiRhQqp8" 
-  },
-  { 
-    title: "Algorithms", 
-    views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?6", 
-    url: "https://youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O&si=3V7fKD7h6edTrlwi" 
-  },
-  { 
-    title: "Java Certification 8 & 11 OCJA", 
-    views: "760K views", 
-    thumbnail: "https://picsum.photos/300/150?7", 
-    url: "https://youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA&si=_6wsUKs3qr5lQ6jI" 
+    url: "https://youtu.be/P15wMPd8CWo" 
   },
   { 
     title: "Data Structures", 
     views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?8", 
-    url: "https://youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5&si=QNk-TgjPInN-goHy" 
+    thumbnail: "https://picsum.photos/300/150?4", 
+    url: "https://youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5" 
   },
+  { 
+    title: "Algorithms", 
+    views: "540K views", 
+    thumbnail: "https://picsum.photos/300/150?5", 
+    url: "https://youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" 
+  },
+  { 
+    title: "Java Certification 8 & 11 OCJA", 
+    views: "760K views", 
+    thumbnail: "https://picsum.photos/300/150?6", 
+    url: "https://youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA" 
+  }
 ];
 
 // =======================
@@ -69,23 +57,12 @@ function loadVideos(videosToLoad) {
         <p>${v.views}</p>
       </div>
     `;
-    // When clicked, open modal and play only that video
     videoCard.addEventListener("click", () => openModal(v.url));
     videoGrid.appendChild(videoCard);
   });
 }
 
 loadVideos(videos);
-
-// =======================
-// 🧭 TAB SWITCHING
-// =======================
-function showTab(tabId) {
-  document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
-  document.querySelectorAll(".tab").forEach(btn => btn.classList.remove("active"));
-  document.getElementById(tabId).classList.add("active");
-  event.target.classList.add("active");
-}
 
 // =======================
 // 🎬 VIDEO PLAYER MODAL
@@ -96,16 +73,15 @@ const videoPlayer = document.getElementById("videoPlayer");
 function openModal(videoUrl) {
   modal.style.display = "flex";
 
-  // ✅ Convert to embeddable YouTube URL
+  // Convert to embeddable YouTube URL
   let embedUrl = videoUrl
     .replace("watch?v=", "embed/")
     .replace("youtu.be/", "www.youtube.com/embed/")
     .replace("youtube.com/playlist?", "www.youtube.com/embed/videoseries?");
 
-  // ✅ Add playback settings
   videoPlayer.src = `${embedUrl}?autoplay=1&rel=0&modestbranding=1&controls=1`;
 
-  // ❗ Fallback for unembeddable videos
+  // Fallback for unembeddable videos
   videoPlayer.onerror = () => {
     alert("⚠️ This video cannot be embedded. Opening on YouTube instead...");
     window.open(videoUrl, "_blank");
@@ -114,10 +90,9 @@ function openModal(videoUrl) {
 
 function closeModal() {
   modal.style.display = "none";
-  videoPlayer.src = ""; // Stop video when closed
+  videoPlayer.src = "";
 }
 
-// Close modal when clicking outside
 window.onclick = function(event) {
   if (event.target === modal) {
     closeModal();
