@@ -9,7 +9,7 @@ const videos = [
     url: "https://www.youtube.com/watch?v=Lc5LKDqhyzs" 
   },
   { 
-    title: "AWS Full Course 2025 | AWS Training For Beginners ", 
+    title: "AWS Full Course 2025 | AWS Training For Beginners", 
     views: "980K Never mind learn", 
     thumbnail: "https://picsum.photos/300/150?2", 
     url: "https://www.youtube.com/live/6_R1ZUVz7FU?si=m-Qp_lvGKZ-8j3ml" 
@@ -32,22 +32,22 @@ const videos = [
     thumbnail: "https://picsum.photos/300/150?5", 
     url: "https://youtube.com/playlist?list=PLDV1Zeh2NRsB6SWUrDFW2RmDotAfPbeHu&si=vCWfgaIoJiRhQqp8" 
   },
-    { 
+  { 
     title: "Algorithms", 
     views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?5", 
+    thumbnail: "https://picsum.photos/300/150?6", 
     url: "https://youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O&si=3V7fKD7h6edTrlwi" 
   },
-    { 
+  { 
     title: "Java Certification 8 & 11 OCJA", 
     views: "760K views", 
-    thumbnail: "https://picsum.photos/300/150?4", 
+    thumbnail: "https://picsum.photos/300/150?7", 
     url: "https://youtube.com/playlist?list=PLd3UqWTnYXOnujVvl3wiZfrFKUEg9jBeA&si=_6wsUKs3qr5lQ6jI" 
   },
- { 
-    title: "DS", 
+  { 
+    title: "Data Structures", 
     views: "540K views", 
-    thumbnail: "https://picsum.photos/300/150?5", 
+    thumbnail: "https://picsum.photos/300/150?8", 
     url: "https://youtube.com/playlist?list=PLYwpaL_SFmcBpa1jwpCbEDespCRF3UPE5&si=QNk-TgjPInN-goHy" 
   },
 ];
@@ -93,19 +93,31 @@ function showTab(tabId) {
 const modal = document.getElementById("videoModal");
 const videoPlayer = document.getElementById("videoPlayer");
 
-// Open modal and play only the chosen video (no random suggestions)
 function openModal(videoUrl) {
   modal.style.display = "flex";
-  videoPlayer.src = `${videoUrl}?autoplay=1&rel=0&modestbranding=1&controls=1`;
+
+  // ✅ Convert to embeddable YouTube URL
+  let embedUrl = videoUrl
+    .replace("watch?v=", "embed/")
+    .replace("youtu.be/", "www.youtube.com/embed/")
+    .replace("youtube.com/playlist?", "www.youtube.com/embed/videoseries?");
+
+  // ✅ Add playback settings
+  videoPlayer.src = `${embedUrl}?autoplay=1&rel=0&modestbranding=1&controls=1`;
+
+  // ❗ Fallback for unembeddable videos
+  videoPlayer.onerror = () => {
+    alert("⚠️ This video cannot be embedded. Opening on YouTube instead...");
+    window.open(videoUrl, "_blank");
+  };
 }
 
-// Close modal and stop playback
 function closeModal() {
   modal.style.display = "none";
   videoPlayer.src = ""; // Stop video when closed
 }
 
-// Close modal when clicking outside it
+// Close modal when clicking outside
 window.onclick = function(event) {
   if (event.target === modal) {
     closeModal();
@@ -119,14 +131,4 @@ function searchVideos() {
   const query = document.getElementById("searchInput").value.toLowerCase();
   const filtered = videos.filter(v => v.title.toLowerCase().includes(query));
   loadVideos(filtered);
-}
-function openModal(videoUrl) {
-  modal.style.display = "flex";
-  videoPlayer.src = `${videoUrl}?autoplay=1&rel=0&modestbranding=1&controls=1`;
-
-  // fallback: redirect if video fails
-  videoPlayer.onerror = () => {
-    alert("This video cannot be embedded. Opening on YouTube instead...");
-    window.open(videoUrl.replace("embed/", "watch?v="), "_blank");
-  };
 }
