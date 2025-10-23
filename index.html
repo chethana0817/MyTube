@@ -1,27 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Learning Process (MyTube)</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyTube - New Learning Process</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>🎓 New Learning Process (MyTube)</header>
+  <!-- 🔴 NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <h1 class="logo">MyTube</h1>
+    </div>
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search videos..." />
-    <button onclick="searchVideos()">Search</button>
-  </div>
+    <div class="nav-center">
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Videos</a></li>
+        <li><a href="#">Playlists</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
 
-  <div id="videoGrid"></div>
+    <div class="nav-right">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search..." />
+        <button onclick="searchVideos()">🔍</button>
+      </div>
+      <div class="profile-icon">
+        <span>👤</span>
+      </div>
+    </div>
+  </nav>
 
-  <!-- 🎬 Modal -->
+  <!-- 🎥 Video Grid -->
+  <section id="videoGrid"></section>
+
+  <!-- 🎬 Video Modal -->
   <div id="videoModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
-      <iframe 
+      <iframe
         id="videoPlayer"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -30,7 +50,7 @@
     </div>
   </div>
 
-  <footer>© 2025 New Learning Process | Built by Chethana M 💻</footer>
+  <footer>© 2025 MyTube | New Learning Process by Chethana M 💻</footer>
 
   <script src="script.js"></script>
 </body>
