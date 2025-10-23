@@ -2,7 +2,6 @@
 // 📹 VIDEO & PLAYLIST DATA
 // =======================
 
-// 🎞 Single Videos
 const videos = [
   { 
     title: "AI Chatbot Python Full Course For Beginners (Learn How To Code in 2025)", 
@@ -22,7 +21,6 @@ const videos = [
     thumbnail: "https://picsum.photos/300/150?3", 
     url: "https://youtu.be/P15wMPd8CWo" 
   },
-  // 🆕 BEL Exam Preparation Videos
   { 
     title: "BEL Exam Preparation 2025 - Aptitude Session 1", 
     views: "New", 
@@ -88,7 +86,6 @@ function loadGrid(items, containerId) {
   items.forEach(item => grid.appendChild(createCard(item)));
 }
 
-// Initial load
 loadGrid(videos, "videoGrid");
 loadGrid(playlists, "playlistGrid");
 
@@ -101,24 +98,26 @@ const videoPlayer = document.getElementById("videoPlayer");
 function openModal(url) {
   let embed = "";
 
-  // 🧠 Identify and convert correctly
-  if (url.includes("playlist?list=")) {
-    // Playlist URL
-    const listId = url.split("list=")[1];
-    embed = `https://www.youtube.com/embed/videoseries?list=${listId}`;
-  } else if (url.includes("watch?v=")) {
-    // Normal YouTube video
-    const videoId = url.split("v=")[1].split("&")[0];
-    embed = `https://www.youtube.com/embed/${videoId}`;
-  } else if (url.includes("youtu.be/")) {
-    // Short YouTube link
-    const videoId = url.split("youtu.be/")[1].split("?")[0];
-    embed = `https://www.youtube.com/embed/${videoId}`;
-  }
+  try {
+    url = url.split("&")[0].trim();
 
-  // ✅ Set iframe src
-  videoPlayer.src = `${embed}?rel=0&autoplay=1&modestbranding=1`;
-  modal.style.display = "flex";
+    if (url.includes("playlist?list=")) {
+      const listId = url.split("list=")[1];
+      embed = `https://www.youtube.com/embed/videoseries?list=${listId}`;
+    } else if (url.includes("watch?v=")) {
+      const videoId = url.split("v=")[1];
+      embed = `https://www.youtube.com/embed/${videoId}`;
+    } else if (url.includes("youtu.be/")) {
+      const videoId = url.split("youtu.be/")[1];
+      embed = `https://www.youtube.com/embed/${videoId}`;
+    }
+
+    videoPlayer.src = `${embed}?autoplay=1&rel=0&modestbranding=1`;
+    modal.style.display = "flex";
+  } catch (e) {
+    console.error("Embed error:", e);
+    window.open(url, "_blank");
+  }
 }
 
 function closeModal() {
@@ -156,5 +155,4 @@ function searchInActiveTab() {
   }
 }
 
-// Close modal on Escape
 window.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
