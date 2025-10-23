@@ -16,10 +16,9 @@
 
     <div class="nav-center">
       <ul class="nav-links">
-        <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">Videos</a></li>
-        <li><a href="#">Playlists</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="#" class="active" onclick="showTab('videosTab', event)">Videos</a></li>
+        <li><a href="#" onclick="showTab('playlistsTab', event)">Playlists</a></li>
+        <li><a href="#" onclick="showTab('aboutTab', event)">About</a></li>
       </ul>
     </div>
 
@@ -34,10 +33,28 @@
     </div>
   </nav>
 
-  <!-- 🎥 Video Grid -->
-  <section id="videoGrid"></section>
+  <!-- 🎥 VIDEOS TAB -->
+  <section id="videosTab" class="tab-content active">
+    <div id="videoGrid"></div>
+  </section>
 
-  <!-- 🎬 Video Modal -->
+  <!-- 🎞 PLAYLISTS TAB -->
+  <section id="playlistsTab" class="tab-content">
+    <div id="playlistGrid"></div>
+  </section>
+
+  <!-- ℹ️ ABOUT TAB -->
+  <section id="aboutTab" class="tab-content">
+    <div class="about-section">
+      <h2>About MyTube</h2>
+      <p>Welcome to <b>MyTube</b> — your personalized “New Learning Process” platform!<br>
+         Here you can explore videos, playlists, and resources related to technology and continuous learning.
+      </p>
+      <p>Created by <b>Chethana M</b> 💻</p>
+    </div>
+  </section>
+
+  <!-- 🎬 MODAL -->
   <div id="videoModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
