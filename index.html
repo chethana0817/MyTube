@@ -8,18 +8,15 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- 🔴 NAVBAR -->
   <nav class="navbar">
-    <div class="nav-left">
-      <h1 class="logo">MyTube</h1>
-    </div>
+    <div class="nav-left"><h1 class="logo">MyTube</h1></div>
 
     <div class="nav-center">
       <ul class="nav-links">
-        <!-- note: use href="#" and pass event to showTab -->
-        <li><a href="#" class="active" onclick="showTab('videosTab', event)">Videos</a></li>
-        <li><a href="#" onclick="showTab('playlistsTab', event)">Playlists</a></li>
-        <li><a href="#" onclick="showTab('aboutTab', event)">About</a></li>
+        <li><button class="active" onclick="showTab('videosTab', this)">Videos</button></li>
+        <li><button onclick="showTab('playlistsTab', this)">Playlists</button></li>
+        <li><button onclick="showTab('aboutTab', this)">About</button></li>
       </ul>
     </div>
 
@@ -32,42 +29,42 @@
     </div>
   </nav>
 
-  <!-- TABS -->
+  <!-- 🧭 MAIN CONTENT -->
   <main>
-    <!-- Videos tab (default active) -->
+    <!-- Videos Tab -->
     <section id="videosTab" class="tab-content active">
       <div id="videoGrid"></div>
     </section>
 
-    <!-- Playlists tab -->
+    <!-- Playlists Tab -->
     <section id="playlistsTab" class="tab-content">
       <div id="playlistGrid"></div>
     </section>
 
-    <!-- About tab -->
+    <!-- About Tab -->
     <section id="aboutTab" class="tab-content">
       <div class="about-section">
         <h2>About MyTube</h2>
-        <p>Welcome to <strong>MyTube</strong> — New Learning Process by Chethana M.</p>
+        <p>Welcome to <b>MyTube</b> — your focused YouTube learning space 🎯</p>
+        <p>Created by <b>Chethana M</b> as a part of the <b>New Learning Process</b> project 💻</p>
       </div>
     </section>
   </main>
 
-  <!-- VIDEO MODAL -->
+  <!-- 🎬 VIDEO MODAL -->
   <div id="videoModal" class="modal" onclick="modalBackgroundClick(event)">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
-      <iframe
+      <iframe 
         id="videoPlayer"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="autoplay; encrypted-media"
+        referrerpolicy="no-referrer"
         allowfullscreen>
       </iframe>
     </div>
   </div>
 
-  <footer>© 2025 MyTube | New Learning Process</footer>
-
+  <footer>© 2025 MyTube | New Learning Process by Chethana M 💻</footer>
   <script src="script.js"></script>
 </body>
 </html>
