@@ -1,4 +1,4 @@
-/* ========== General ========== */
+/* General */
 body {
   font-family: "Segoe UI", sans-serif;
   background-color: #111;
@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 
-/* ========== Navbar ========== */
+/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -27,7 +27,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* ========== Nav Links ========== */
+/* Nav links */
 .nav-links {
   list-style: none;
   display: flex;
@@ -60,7 +60,7 @@ body {
   background: #ff4444;
 }
 
-/* ========== Search Box ========== */
+/* Search Box */
 .search-box {
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* ========== Profile Icon ========== */
+/* Profile Icon */
 .profile-icon span {
   font-size: 1.5rem;
   margin-left: 15px;
@@ -95,8 +95,8 @@ body {
   cursor: pointer;
 }
 
-/* ========== Video Grid ========== */
-#videoGrid {
+/* Video Grid */
+#videoGrid, #playlistGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
@@ -139,7 +139,23 @@ body {
   font-size: 0.9rem;
 }
 
-/* ========== Modal ========== */
+/* Tabs */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* About Section */
+.about-section {
+  text-align: center;
+  padding: 40px;
+  color: #ccc;
+}
+
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -151,14 +167,12 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
   position: relative;
   width: 90%;
   max-width: 900px;
-  animation: zoomIn 0.3s ease;
 }
 
 .close-btn {
@@ -177,6 +191,7 @@ iframe {
   border-radius: 10px;
 }
 
+/* Footer */
 footer {
   text-align: center;
   padding: 20px;
@@ -184,14 +199,4 @@ footer {
   background: #0d0d0d;
   margin-top: 30px;
   font-size: 0.9rem;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes zoomIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
 }
